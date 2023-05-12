@@ -18,7 +18,7 @@ Clean blog is a full featured, responsive Hexo theme. [Demo here](http://www.cod
 - Code syntax highlighting
 
 ## External libraries used
-test
+
 - [Bootstrap](http://getbootstrap.com/css/)
 - [FeatherLight.js](http://noelboss.github.io/featherlight/) (Gallery)
 - [jQuery](https://jquery.com/)
