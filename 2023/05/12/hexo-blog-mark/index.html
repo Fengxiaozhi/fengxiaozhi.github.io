@@ -13,6 +13,16 @@
     
 
     
+        <meta name="description" content="hexo搭建的相关问题
+构建部署过程
+
+Git workflow生成的html为空的
+
+
+
+构建部署过程Git workflow生成的html为空的原因是使用的主题没有被push上去仓库。
+主题是克隆下来的，所以在推送的时候 .gitmodules记录远程仓库其实是一个软连接，没有把实际的本地代码推"/>
+    
 
     <!--Author-->
     
@@ -25,6 +35,16 @@
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="hexo搭建的相关问题
+构建部署过程
+
+Git workflow生成的html为空的
+
+
+
+构建部署过程Git workflow生成的html为空的原因是使用的主题没有被push上去仓库。
+主题是克隆下来的，所以在推送的时候 .gitmodules记录远程仓库其实是一个软连接，没有把实际的本地代码推"/>
     
 
     <!--Open Graph Site Name-->
@@ -91,7 +111,7 @@
     <!-- Menu -->
     
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top home_page" >
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -140,79 +160,59 @@
 </nav>
 
     <!-- Main Content -->
-    <!-- 首页 -->
+    <!-- 内容页面的入口 -->
 <!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header main" style="background-image: url('/xiaozhi/img/home-bg.jpg')">
-    <div class="container">
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+<!-- 文章内容页面 -->
+<!-- 这里还需要把文章对应的tag展示列出来 -->
+<!-- Post Content -->
+<article>
+    <div class="container body-container">
         <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>xiaozhi‘blog</h1>
-                    <hr class="small">
-                    <span class="subheading"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Main Content -->
-<div class="container body-container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1">
-            
-                <div class="post-preview">
-    <a href="/xiaozhi/2023/05/12/hexo-blog-mark/">
-        <h2 class="post-title">
-            Untitled
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2023-05-12
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/xiaozhi/2023/05/11/firstPage/">
-        <h2 class="post-title">
-            firstPage
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2023-05-11
-    </p>
-</div>
-<hr>
-            
-
-            <ul class="pager">
-    
-    
+                <h1 id="hexo搭建的相关问题"><a href="#hexo搭建的相关问题" class="headerlink" title="hexo搭建的相关问题"></a>hexo搭建的相关问题</h1><ul>
+<li><p>构建部署过程</p>
+<ul>
+<li>Git workflow生成的html为空的</li>
 </ul>
+</li>
+</ul>
+<h2 id="构建部署过程"><a href="#构建部署过程" class="headerlink" title="构建部署过程"></a>构建部署过程</h2><h3 id="Git-workflow生成的html为空的"><a href="#Git-workflow生成的html为空的" class="headerlink" title="Git workflow生成的html为空的"></a>Git workflow生成的html为空的</h3><p>原因是使用的主题没有被push上去仓库。</p>
+<p>主题是克隆下来的，所以在推送的时候 .gitmodules记录远程仓库其实是一个软连接，没有把实际的本地代码推送上去，并且我的主题是自定义过了，所以需要处理一下把主题推送上去。</p>
+<p>.gitmodules</p>
+<p>解决：</p>
+<p>1、把主题文件夹里面的git相关信息删除。.gitmodules里面相关信息也删除</p>
+<p><img src="/xiaozhi/Users/fengyuanzhi/myfiles/fyz/blog/source/statics/image-20230512110641933.png" alt="image-20230512110641933"></p>
+<p>2、把本地git的cache清理一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cache themes/hexo-theme-clean-blog</span><br></pre></td></tr></table></figure>
+
+<p>3、上面两个步骤都不行，那就直接把改造过的主题内容copy出来然后再paste进去themes里面</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
-        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12">
-            <section>
-    <h5><a >TAGS</a></h5>
-    
-
-
-    <div class="tags">
-        <a class="custom-tags" href="/xiaozhi/tags/js/" title="js">js</a> <a class="custom-tags" href="/xiaozhi/tags/TS/" title="TS">TS</a>
     </div>
-</section>
-        </div>
-    </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
