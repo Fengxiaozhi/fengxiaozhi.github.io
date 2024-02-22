@@ -119,7 +119,7 @@ https://www.npmjs.com/package/@microsoft/fetch-event-source
 
 
 
-### 服务端
+## 服务端如何创建SSE接口
 
 阮一峰老师的简单[demo](https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html).
 
