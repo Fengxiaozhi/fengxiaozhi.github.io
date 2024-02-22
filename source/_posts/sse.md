@@ -1,4 +1,11 @@
-sse是指[server sent events][https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events]，它是除了websocket之外的另一种服务器推送信息方法。
+---
+title: SSE
+date: 2023-05-11 11:58:23
+tags: ["js"]
+---
+
+## 介绍
+sse是指[server sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)，它是除了websocket之外的另一种服务器推送信息方法。
 
 
 
@@ -20,7 +27,7 @@ sse其实还是http请求，只是在一次请求中，服务器响应告诉客�
 
 #### 使用fetch请求
 
-sse本质上是http请求所以使用fetch也是可以的。接下来就是看一下我们怎么处理的是[response][https://developer.mozilla.org/en-US/docs/Web/API/Response]的数据，其格式是这样的：
+sse本质上是http请求所以使用fetch也是可以的。接下来就是看一下我们怎么处理的是[response](https://developer.mozilla.org/en-US/docs/Web/API/Response)的数据，其格式是这样的：
 
 ```
 body: ReadableStream
@@ -34,7 +41,7 @@ type: "cors"
 url: "http://localhost:3000/chat/sendMsg"
 ```
 
-fetch请求的接口如果是以流的方式返回那么必须使用流的方式读取 [readStream][https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream]，当然如果返回的不是流的方式也可以使用读取流的方式获取body内容，只是没必要。
+fetch请求的接口如果是以流的方式返回那么必须使用流的方式读取 [readStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)，当然如果返回的不是流的方式也可以使用读取流的方式获取body内容，只是没必要。
 
 读取stream的方法
 
@@ -71,7 +78,7 @@ async handleTest2 () {
     },
 ```
 
-读取非流的方式 [response][https://developer.mozilla.org/en-US/docs/Web/API/Response]
+读取非流的方式 [response](https://developer.mozilla.org/en-US/docs/Web/API/Response)
 
 ```
 async handleTest2 () {
@@ -114,7 +121,7 @@ https://www.npmjs.com/package/@microsoft/fetch-event-source
 
 ### 服务端
 
-阮一峰老师的简单[demo][https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html].
+阮一峰老师的简单[demo](https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html).
 
 启动（node server.js）之后访问 'http://localhost:8844/stream'即可
 

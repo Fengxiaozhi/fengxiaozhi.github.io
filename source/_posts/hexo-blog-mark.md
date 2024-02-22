@@ -1,14 +1,15 @@
-# hexo搭建的相关问题
+---
+title: Hexo搭建记录
+date: 2023-05-11 11:58:23
+tags: ["Hexo"]
+---
+## hexo搭建时碰到的问题
 
-- 构建部署过程
-
-  - Git workflow生成的html为空的
+- 构建部署过程，Git workflow生成的html为空的
 
     
 
-## 构建部署过程
-
-### Git workflow生成的html为空的
+### 构建部署过程，Git workflow生成的html为空的
 
 原因是使用的主题没有被push上去仓库。
 
@@ -20,7 +21,6 @@
 
 1、把主题文件夹里面的git相关信息删除。.gitmodules里面相关信息也删除
 
-![image-20230512110641933](/Users/fengyuanzhi/myfiles/fyz/blog/source/statics/image-20230512110641933.png)
 
 2、把本地git的cache清理一下
 
