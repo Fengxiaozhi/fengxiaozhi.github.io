@@ -1,7 +1,7 @@
 ---
 title: SSE
 date: 2023-05-11 11:58:23
-tags: ["js"]
+tags: ["http"]
 ---
 
 ## 介绍
@@ -27,7 +27,7 @@ sse其实还是http请求，只是在一次请求中，服务器响应告诉客�
 
 #### 使用fetch请求
 
-sse本质上是http请求所以使用fetch也是可以的。接下来就是看一下我们怎么处理的是[response](https://developer.mozilla.org/en-US/docs/Web/API/Response)的数据，其格式是这样的：
+sse本质上是http请求所以使用fetch也是可以的。接下来需要看一下我们怎么处理[response](https://developer.mozilla.org/en-US/docs/Web/API/Response)的数据，其格式是这样的：
 
 ```
 body: ReadableStream
@@ -70,7 +70,7 @@ async handleTest2 () {
       }).then(async res => {
         for await (const chunk of this.onStream(res.body)) {
           const str = new TextDecoder().decode(chunk)
-          console.log('fetch2---', str)
+          console.log('解析出来的内容：', str)
         }
       })
 
@@ -99,7 +99,7 @@ async handleTest2 () {
 
 #### 使用EventSource对象
 
-需要注意的是EventSource只能接受get请求
+[EventSource对象](https://developer.mozilla.org/zh-CN/docs/Web/API/EventSource)使用比较简单，需要注意的是EventSource只能接受get请求。
 
 ```
 const evtSource = new EventSource('http://localhost:8844/stream')
@@ -113,15 +113,44 @@ const evtSource = new EventSource('http://localhost:8844/stream')
 
 
 
-#### 使用封装好的模块（fetch-event-source）
+#### 使用封装好的模块
 
-https://www.npmjs.com/package/@microsoft/fetch-event-source
+[fetch-event-source](https://www.npmjs.com/package/@microsoft/fetch-event-source)
+
+使用比较简单，跟使用EventSource一样，但相对于使用EventSource对象有以下的优势：
+1. fetch-event-source可以支持post等其他方法，eventSource对象只能支持get方法
+2. 支持post方法所以传入的参数比较灵活，可以传入参数，也可以不传入参数
+3. 可以传入自定义请求头
+4. 可以自定义配置重试机制，eventSource对象重试几次之后就会断开
+```
+
+const { EventSource } = require('@microsoft/fetch-event-source');
+const evtSource = new EventSource('http://localhost:8844/stream', { 
+    headers: {
+    },
+    method: 'POST',
+    onopen(response) {
+      // 打开时
+    },
+    onmessage(msg) {
+      // 持续接受的信息
+    },
+    onclose() {
+      // 关闭时
+    },
+    onerror() {
+      // 错误时
+    },
+  });
+
+```
 
 
+### 服务端
 
-## 服务端如何创建SSE接口
+#### 如何创建SSE接口
 
-阮一峰老师的简单[demo](https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html).
+参考阮一峰老师的简单[demo](https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html).
 
 启动（node server.js）之后访问 'http://localhost:8844/stream'即可
 
