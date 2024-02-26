@@ -2,6 +2,7 @@
 title: Hexo搭建记录
 date: 2023-05-11 11:58:23
 tags: ["问题集"]
+description: Hexo搭建记录
 ---
 ## hexo搭建时碰到的问题
 
