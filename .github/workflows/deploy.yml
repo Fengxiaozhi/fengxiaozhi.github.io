@@ -1,6 +1,6 @@
 # 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
 #
-name: Deploy VitePress2
+name: Deploy VitePress4
 
 on:
   # 在针对 `main` 分支的推送上运行。如果你
@@ -36,6 +36,8 @@ jobs:
       # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
       - name: Setup Node
         uses: actions/setup-node@v4
+      - name: cache
+        uses: actions/checkout@v4
         with:
           node-version: 20
           cache: npm # 或 pnpm / yarn
