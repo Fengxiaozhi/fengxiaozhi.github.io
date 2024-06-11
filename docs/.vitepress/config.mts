@@ -12,21 +12,19 @@ let getFilePosts = async () => {
   let parentPath = path.join(__dirname,`../${parentDirName}`)
     // 获取post下的文件列表
     fs.readdir(parentPath, (err, postDirFiles) => {
-
-      
       // 开始遍历子目录
       postDirFiles.map(childDirName => {
         let barOj = sidebar[`/${parentDirName}/${childDirName}/`]
         if(!barOj) {
           barOj = sidebar[`/${parentDirName}/${childDirName}/`] = []
         }
+        // 得到一级目录路径
         let childPath = path.join(parentPath,childDirName)
-        // 获取二级目录下的所有文件
+        // 得到一级目录路径所有文件
         let childFiles = fs.readdirSync(childPath)
-        // console.log(childFiles)
-
         // 生成子文件目录
         let items = childFiles.map(childFileName => {
+          // 这里把文章的第一行当做了目录的标题
           let filePath = path.join(childPath, childFileName)
           let fileContent = fs.readFileSync(filePath, {encoding:'utf-8'})
           let title = fileContent.split('\n')[0].replace(/^\#\s+/,'')
