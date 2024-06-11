@@ -1,4 +1,4 @@
 /node_modules/
 /public/
-docs/.vitepress/*
-docs/.vitepress/config.mts
+docs/.vitepress/dist/
+docs/.vitepress/cache/
