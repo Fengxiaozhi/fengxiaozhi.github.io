@@ -55,4 +55,4 @@ postDirFiles.map(childDirName => {
     })
 })
 ```
-当然这里是没有考虑目录下不是md文件这些情况的。根据自己需要再做改动。
+当然这里是没有考虑目录下不是md文件这些情况的。根据自己需要再做改动。最终的代码可以参考[vitepress/config.mts](https://github.com/Fengxiaozhi/fengxiaozhi.github.io/blob/master/docs/.vitepress/config.mts)
