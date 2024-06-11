@@ -1,9 +1,5 @@
----
-title: SSE
-date: 2023-05-11 11:58:23
-tags: ["http"]
-description: SSE
----
+# sse简介
+
 
 ## 介绍
 sse是指[server sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)，它是除了websocket之外的另一种服务器推送信息方法。
