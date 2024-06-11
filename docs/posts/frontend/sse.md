@@ -98,7 +98,7 @@ async handleTest2 () {
 
 [EventSource对象](https://developer.mozilla.org/zh-CN/docs/Web/API/EventSource)使用比较简单，需要注意的是EventSource只能接受get请求。
 
-```
+``` javascript
 const evtSource = new EventSource('http://localhost:8844/stream')
   evtSource.addEventListener('open', () => {
     console.log('打开了')
@@ -119,8 +119,8 @@ const evtSource = new EventSource('http://localhost:8844/stream')
 2. 支持post方法所以传入的参数比较灵活，可以传入参数，也可以不传入参数
 3. 可以传入自定义请求头
 4. 可以自定义配置重试机制，eventSource对象重试几次之后就会断开
-```
 
+```javascript
 const { EventSource } = require('@microsoft/fetch-event-source');
 const evtSource = new EventSource('http://localhost:8844/stream', { 
     headers: {
@@ -149,9 +149,9 @@ const evtSource = new EventSource('http://localhost:8844/stream', {
 
 参考阮一峰老师的简单[demo](https://www.ruanyifeng.com/blog/2017/05/server-sent_events.html).
 
-启动（node server.js）之后访问 'http://localhost:8844/stream'即可
+启动（node server.js）之后访问 [http://localhost:8844/stream](http://localhost:8844/stream) 即可
 
-```
+``` javascript
 var http = require("http");
 
 http.createServer(function (req, res) {
