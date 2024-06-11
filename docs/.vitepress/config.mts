@@ -60,7 +60,6 @@ export default defineConfig({
       { text: '前端', link: '/posts/frontend/sse' },
       { text: '其他', link: '/posts/other/hexo-blog-mark' }
     ],
-
     sidebar,
 
     socialLinks: [
