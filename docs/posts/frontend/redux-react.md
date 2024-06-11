@@ -67,75 +67,24 @@ render () {
 
 
 ## 常用Api
-## 关键知识点
+- createStore
+- applyMiddleware
+- combineReducers
+
 ## 原理
-## 自定义实现
+利用函数式编程做统一状态管理，实现单向数据流，使数据的流转变得可预测。
+
+## 实现简单的redux
 
 使用redux的两个关键Api就是：
 
 - createStore
-- 中间件
+- applyMiddleware
 
-### createStore如何实现
-先看createStore返回了什么内容
-```
-主要是以下几个方法
-{
-	dispatch,
-	subscribe,
-	getState
-}
-```
-
-实现自定义createStore
-
-```
-// reducer 修改规则
-// preloadedState 默认值
-// enhancer 存储增强器。您可以选择指定它来通过第三方功能（例如中间件、时间旅行、持久性等）增强 存储。Redux 附带的唯一存储增强器是。 [`applyMiddleware()`]
-
-function createStore(reducer,preloadedState,enhancer) {
-	// 如果有增强器那就直接执行增强器
-	if (enhancer) {
-		// enhancer加强dispatch
-		return enhancer(createStore)(reducer);
-	}
-
-	let currentState;
-	let listeners = []
-	
-	// 派发事件
-	const dispatch = (action) => {
-		currentState = reducer(currentState,action)
-		//然后通知所有事件
-		listeners.map(listener => listener())
-	}
-	// 监听事件
-	const subscribe = (listener) => {
-		let len = listeners.push(listener)
-		return () => {
-			const index = len - 1
-			listeners.splice(index,1)
-		}
-	}
-	// 返回当前store的store
-	const getState = () => {
-		return currentState
-	}
-
-	return {
-		dispatch,
-		subscribe,
-		getState
-	}
-}
-```
-
-
-
+在实现createStore一级applyMiddleware之前我们先来了解一下中间件。
 
 ### 中间件
-Redux 的中间件提供的是位于 action 被发起之后，到达 reducer 之前的扩展点，换而言之，原本 view -→> action -> reducer -> store 的数据流加上中间件后变成了 view -> action -> middleware -> reducer -> store ，在这一环节可以做一些"副作用"的操作，如 异步请求、打印日志等。
+Redux 的中间件提供的是位于 action 被发起之后，到达 reducer 之前的扩展点，换而言之，原本 view -> action -> reducer -> store 的数据流加上中间件后变成了 view -> action -> middleware -> reducer -> store ，在这一环节可以做一些"副作用"的操作，如 异步请求、打印日志等。
 
 我们先看看如何使用：
 ```
@@ -196,55 +145,72 @@ function supportPromise ((getState,dispatch)) {
 ```
 
 
-#### 组合函数
-在实现applyMiddleware之前，先了解一下什么是组合函数。
 
-将多个函数按照一定顺序组合起来，以便将一个函数的输出作为另一个函数的输入，这就是函数的组合。
+### createStore如何实现
+先看createStore返回了什么内容
+```
+主要是以下几个方法
+{
+	dispatch,
+	subscribe,
+	getState
+}
+```
+
+实现自定义createStore
 
 ```
-function compose(...funcs) {
-	if (funcs.length === 0) {
-		return (arg) => arg
+// reducer 修改规则
+// preloadedState 默认值
+// enhancer 存储增强器。您可以选择指定它来通过第三方功能（例如中间件、时间旅行、持久性等）增强 存储。Redux 附带的唯一存储增强器是。 [`applyMiddleware()`]
+
+function createStore(reducer,preloadedState,enhancer) {
+	// 如果有增强器那就直接执行增强器
+	if (enhancer) {
+		// enhancer加强dispatch
+		return enhancer(createStore)(reducer);
 	}
-	if (funcs.length === 1) {
-		return funcs[0]
+
+	let currentState;
+	let listeners = []
+	
+	// 派发事件
+	const dispatch = (action) => {
+		currentState = reducer(currentState,action)
+		//然后通知所有事件
+		listeners.map(listener => listener())
 	}
-	return funcs.reduce((a, b) => (...args) => a(b(...args)))
+	// 监听事件
+	const subscribe = (listener) => {
+		let len = listeners.push(listener)
+		return () => {
+			const index = len - 1
+			listeners.splice(index,1)
+		}
+	}
+	// 返回当前store的store
+	const getState = () => {
+		return currentState
+	}
+
+	return {
+		dispatch,
+		subscribe,
+		getState
+	}
 }
 ```
 
-例如：
-```
-function fn1(...args) {
 
-    console.log('fn1',...args)
-    return 1
-}
-function fn2(...args) {
 
-    console.log('fn2',...args)
-    return 2
-}
-function fn3(...args) {
 
-    console.log('fn3',...args)
-    return 3
-}
-compose(fn1,fn2,fn3)(0)
-输出：=>
-fn3 0
-fn2 3
-fn1 2
-1
-```
-
-#### applyMiddleware如何实现
+### applyMiddleware如何实现
 了解了中间件是怎么实现加上如何使用applyMiddleware应用中间件，那我们就知道applyMiddleware大概是需要什么参数以及返回什么了。
 
 首先applyMiddleware组合了中间件之后返回增强器给到了createStore里面去使用能知道它返回的是一个接受next(createStore)参数的函数，该函数又是返回一个接受action得函数：“enhancer(createStore)(reducer)”,最后函数应该返回与createStore返回一样的结果，只是给dispatch包装了一些中间件的执行，变成了一个高级的dispatch。
 
 所以applyMiddleware的基本结构就是
-```
+```javascript
 function applyMiddleware(...middlewares) {
 	return (createStore) => (reducer) => {
 		let store = createStore(resucer)
@@ -257,7 +223,7 @@ function applyMiddleware(...middlewares) {
 ```
 
 接下来就是对store的dispatch进行重新封装。从实现中间件的方法中可以知道，中间件默认是接受({getState, dispatch})参数的。所以我们先把dispatch包装起来
-```
+```javascript
 function applyMiddleware(...middlewares) {
 	return (createStore) => (reducer) => {
 		let store = createStore(resucer)
@@ -303,4 +269,45 @@ function compose(...funcs) {
 ```
 
 
+#### 组合函数
+再了解一下applyMiddleware里面使用到的compose函数（组合函数）。
+
+将多个函数按照一定顺序组合起来，以便将一个函数的输出作为另一个函数的输入，这就是函数的组合。
+
+```
+function compose(...funcs) {
+	if (funcs.length === 0) {
+		return (arg) => arg
+	}
+	if (funcs.length === 1) {
+		return funcs[0]
+	}
+	return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+```
+
+例如：
+```
+function fn1(...args) {
+
+    console.log('fn1',...args)
+    return 1
+}
+function fn2(...args) {
+
+    console.log('fn2',...args)
+    return 2
+}
+function fn3(...args) {
+
+    console.log('fn3',...args)
+    return 3
+}
+compose(fn1,fn2,fn3)(0)
+输出：=>
+fn3 0
+fn2 3
+fn1 2
+1
+```
 
