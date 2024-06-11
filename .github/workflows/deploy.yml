@@ -1,6 +1,6 @@
 # 构建 VitePress 站点并将其部署到 GitHub Pages 的示例工作流程
 #
-name: Deploy VitePress
+name: Deploy VitePress2
 
 on:
   # 在针对 `main` 分支的推送上运行。如果你
@@ -28,21 +28,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
-      #   with:
-      #     fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
-      # # - uses: pnpm/action-setup@v3 # 如果使用 pnpm，请取消注释
-      # # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
-      - name: Set up cache
-        uses: actions/cache@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 如果未启用 lastUpdated，则不需要
+      # - uses: pnpm/action-setup@v3 # 如果使用 pnpm，请取消注释
+      # - uses: oven-sh/setup-bun@v1 # 如果使用 Bun，请取消注释
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm # 或 pnpm / yarn
@@ -51,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: npm ci # 或 pnpm install / yarn install / bun install
       - name: Build with VitePress
-        run: npm run build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
+        run: npm run docs:build # 或 pnpm docs:build / yarn docs:build / bun run docs:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
