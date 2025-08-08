@@ -182,4 +182,5 @@ http.createServer(function (req, res) {
   }
 }).listen(8844, "127.0.0.1");
 ```
-
+## 其他
+关注“技术K记”公众号，不定时更新日志。大佬路过请多指点。
