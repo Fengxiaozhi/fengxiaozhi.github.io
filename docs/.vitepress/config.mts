@@ -57,7 +57,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Node', link: '/posts/node/infos-node' },
       { text: '前端', link: '/posts/frontend/sse' },
-      { text: '周报', link: '/posts/weekly/remark-week-log' }
+      { text: '周报', link: '/posts/weekly/remark-week-log' },
       { text: '其他', link: '/posts/other/hexo-blog-mark' }
     ],
     sidebar,
