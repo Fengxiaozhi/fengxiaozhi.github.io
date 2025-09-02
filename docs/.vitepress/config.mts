@@ -4,7 +4,8 @@ import path from 'path'
 
 let dirMapName = {
   'node': 'Node',
-  'frontend': '前端', 
+  'javascript': 'JS', 
+  'framework': '框架', 
   'weekly': '周报', 
   'other':'其他'
 }
@@ -56,7 +57,8 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Node', link: '/posts/node/infos-node' },
-      { text: '前端', link: '/posts/frontend/sse' },
+      { text: 'JS', link: '/posts/javascript/sse' },
+      { text: '框架', link: '/posts/framework/redux-react' },
       { text: '周报', link: '/posts/weekly/remark-week-log' },
       { text: '其他', link: '/posts/other/hexo-blog-mark' }
     ],
