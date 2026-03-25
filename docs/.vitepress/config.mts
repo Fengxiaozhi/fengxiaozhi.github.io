@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 let dirMapName = {
+  'ai': 'Ai',
   'node': 'Node',
   'javascript': 'JS', 
   'framework': '框架', 
